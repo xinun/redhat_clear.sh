@@ -6,6 +6,8 @@ echo "===== Accordion / Kubernetes Full Clean Reset ====="
 echo "[1] Stop services"
 systemctl stop kubelet containerd crio podman.socket 2>/dev/null || true
 systemctl disable kubelet containerd 2>/dev/null || true
+echo "-> Kill remaining backup/transfer processes"
+killall -9 scp rsync 2>/dev/null || true
 
 echo "[2] Remove podman containers / volumes"
 podman rm -af 2>/dev/null || true
